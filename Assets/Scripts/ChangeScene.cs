@@ -15,13 +15,13 @@ public class ChangeScene : MonoBehaviour
     }
 
     // LoadAsync
-    public void BeginLoadLevel()
+    public void BeginLoadLevel(string sceneName)
     {
-        StartCoroutine(LoadMenuAsync());
+        StartCoroutine(LoadMenuAsync(sceneName));
     }
-    private IEnumerator LoadMenuAsync()
+    public static IEnumerator LoadMenuAsync(string sceneName)
     {
-        var progress = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+        var progress = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!progress.isDone)
         {
             // Check each frame if the scene has completed
@@ -29,6 +29,6 @@ public class ChangeScene : MonoBehaviour
         }
 
         // Code after this point is executed after the new scene has loaded
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(sceneName);
     }
 }
