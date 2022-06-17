@@ -9,7 +9,6 @@ public class Timer : MonoBehaviour
     // Fields
     private TextMeshProUGUI timer;
     private float time = 10;
-    private float timeRounded;
 
     private void Start()
     {
@@ -17,6 +16,7 @@ public class Timer : MonoBehaviour
     }
     void Update()
     {
+        float timeRounded;
         // Time decreases per second
         time -= 1 * Time.deltaTime;
         timeRounded = Mathf.Round(time);
