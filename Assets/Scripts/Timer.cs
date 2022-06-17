@@ -8,10 +8,25 @@ public class Timer : MonoBehaviour
 {
     // Fields
     private TextMeshProUGUI timer;
-    private float time = 10;
+    private float time = 60;
 
     private void Start()
     {
+        // Set time per level
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            time = 30;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            time = 45;
+        }
+        else
+        {
+            time = 60;
+        }
+
+        // Set timer
         timer = gameObject.transform.GetComponent<TextMeshProUGUI>();
     }
     void Update()
