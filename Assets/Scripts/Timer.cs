@@ -15,15 +15,15 @@ public class Timer : MonoBehaviour
         // Set time per level
         if (SceneManager.GetActiveScene().name == "Level1")
         {
-            time = 30;
+            time = 40;
         }
         else if (SceneManager.GetActiveScene().name == "Level2")
         {
-            time = 45;
+            time = 60;
         }
         else
         {
-            time = 60;
+            time = 80;
         }
 
         // Set timer
