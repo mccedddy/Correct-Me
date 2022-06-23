@@ -20,6 +20,7 @@ public class GameControl : MonoBehaviour
     private string correctAnswer;
     private bool indexAdded = false;
     private int scoreRequired = 10;
+    private bool nextWordStarted = false;
     List<string> wordList;
 
     private void Start()
@@ -66,7 +67,11 @@ public class GameControl : MonoBehaviour
         {
             if(correctAnswer == "button1")
             {
-                NextWord();
+                if (!nextWordStarted)
+                {
+                    StartCoroutine("NextWord");
+                    nextWordStarted = true;
+                }
             }
             else
             {
@@ -83,7 +88,11 @@ public class GameControl : MonoBehaviour
         {
             if (correctAnswer == "button2")
             {
-                NextWord();
+                if (!nextWordStarted)
+                {
+                    StartCoroutine("NextWord");
+                    nextWordStarted = true;
+                }
             }
             else
             {
@@ -99,27 +108,28 @@ public class GameControl : MonoBehaviour
         scoreDisplay.text = "Score: " + score.ToString();
 
         indexAdded = false;
+        nextWordStarted = false;
     }
-    private void NextWord()
+    private IEnumerator NextWord()
     {
-        if (!indexAdded)
+        // Wait 1 second
+        yield return new WaitForSeconds(0.5f);
+
+        // Add score
+        score += 1;
+
+        // Winning condition
+        if (score == scoreRequired)
         {
-            // Add score
-            score += 1;
-
-            // Winning condition
-            if (score == scoreRequired)
-            {
-                SceneManager.LoadScene("Victory");
-            }
-            else // Move index
-            {
-                currentWordIndex += 3;
-            }
-
-            indexAdded = true;
+            SceneManager.LoadScene("Victory");
         }
+        else // Move index
+        {
+            currentWordIndex += 3;
+        }
+
         // Randomize position
         situation = Random.Range(0, 2);
+        Debug.Log("Next!");
     }
 }
