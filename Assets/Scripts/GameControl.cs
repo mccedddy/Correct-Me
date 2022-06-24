@@ -31,21 +31,24 @@ public class GameControl : MonoBehaviour
         foreach (Sprite sprite in sprites)
             dictSprites.Add(sprite.name, sprite);
 
-        // Set required score and word list to be used
+        // Set required score, word list to be used and playerprefs level
         if (SceneManager.GetActiveScene().name == "Level1")
         {
             wordList = Words.wordList1;
             scoreRequired = 10;
+            PlayerPrefs.SetString("Level", "Level 1");
         }
         else if (SceneManager.GetActiveScene().name == "Level2")
         {
             wordList = Words.wordList2;
             scoreRequired = 20;
+            PlayerPrefs.SetString("Level", "Level 2");
         }
         else
         {
             wordList = Words.wordList3;
             scoreRequired = 30;
+            PlayerPrefs.SetString("Level", "Level 3");
         }
 
         // Randomize answer position
@@ -118,8 +121,9 @@ public class GameControl : MonoBehaviour
             button2.interactable = false;
         });
 
-        // Change score display
+        // Change score display and set playerprefs score
         scoreDisplay.text = "Score: " + score.ToString();
+        PlayerPrefs.SetInt("Score", score);
 
         indexAdded = false;
         nextWordStarted = false;
@@ -131,6 +135,9 @@ public class GameControl : MonoBehaviour
 
         // Add score
         score += 1;
+
+        // Set playerprefs score
+        PlayerPrefs.SetInt("Score", score);
 
         // Return sprites to default
         button1.GetComponent<Image>().sprite = dictSprites["UI_1"];
