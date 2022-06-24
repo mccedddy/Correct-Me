@@ -89,6 +89,8 @@ public class GameControl : MonoBehaviour
                     indexAdded = true;
                 }
             }
+            // Disable button
+            button1.interactable = false;
         });
 
         // Button 2
@@ -112,6 +114,8 @@ public class GameControl : MonoBehaviour
                     indexAdded = true;
                 }
             }
+            // Disable button
+            button2.interactable = false;
         });
 
         // Change score display
@@ -131,6 +135,10 @@ public class GameControl : MonoBehaviour
         // Return sprites to default
         button1.GetComponent<Image>().sprite = dictSprites["UI_1"];
         button2.GetComponent<Image>().sprite = dictSprites["UI_1"];
+
+        // Activate buttons
+        button1.interactable = true;
+        button2.interactable = true;
 
         // Winning condition
         if (score == scoreRequired)
