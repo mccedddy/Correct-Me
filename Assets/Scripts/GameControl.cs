@@ -21,10 +21,16 @@ public class GameControl : MonoBehaviour
     private bool indexAdded = false;
     private int scoreRequired = 10;
     private bool nextWordStarted = false;
+    private Dictionary<string, Sprite> dictSprites = new Dictionary<string, Sprite>();
     List<string> wordList;
 
     private void Start()
     {
+        // Load sprites
+        Sprite[] sprites = Resources.LoadAll<Sprite>("UI");
+        foreach (Sprite sprite in sprites)
+            dictSprites.Add(sprite.name, sprite);
+
         // Set required score and word list to be used
         if (SceneManager.GetActiveScene().name == "Level1")
         {
@@ -65,19 +71,21 @@ public class GameControl : MonoBehaviour
         // Button 1
         button1.onClick.AddListener(() =>
         {
-            if(correctAnswer == "button1")
+            if(correctAnswer == "button1") // Change sprite and load next word
             {
+                button1.GetComponent<Image>().sprite = dictSprites["UI_2"];
                 if (!nextWordStarted)
                 {
                     StartCoroutine("NextWord");
                     nextWordStarted = true;
                 }
             }
-            else
+            else // Defeat
             {
-                if (!indexAdded)
+                if (!indexAdded) // Change sprite and load defeat screen
                 {
-                    SceneManager.LoadScene("Defeat");
+                    button1.GetComponent<Image>().sprite = dictSprites["UI_5"];
+                    StartCoroutine("Defeat");
                     indexAdded = true;
                 }
             }
@@ -86,19 +94,21 @@ public class GameControl : MonoBehaviour
         // Button 2
         button2.onClick.AddListener(() =>
         {
-            if (correctAnswer == "button2")
+            if (correctAnswer == "button2") // Change sprite and load next word
             {
+                button2.GetComponent<Image>().sprite = dictSprites["UI_2"];
                 if (!nextWordStarted)
                 {
                     StartCoroutine("NextWord");
                     nextWordStarted = true;
                 }
             }
-            else
+            else // Defeat
             {
-                if (!indexAdded)
+                if (!indexAdded) // Change sprite and load defeat screen
                 {
-                    SceneManager.LoadScene("Defeat");
+                    button2.GetComponent<Image>().sprite = dictSprites["UI_5"];
+                    StartCoroutine("Defeat");
                     indexAdded = true;
                 }
             }
@@ -112,11 +122,15 @@ public class GameControl : MonoBehaviour
     }
     private IEnumerator NextWord()
     {
-        // Wait 1 second
+        // Wait 0.5 second
         yield return new WaitForSeconds(0.5f);
 
         // Add score
         score += 1;
+
+        // Return sprites to default
+        button1.GetComponent<Image>().sprite = dictSprites["UI_1"];
+        button2.GetComponent<Image>().sprite = dictSprites["UI_1"];
 
         // Winning condition
         if (score == scoreRequired)
@@ -131,5 +145,13 @@ public class GameControl : MonoBehaviour
         // Randomize position
         situation = Random.Range(0, 2);
         Debug.Log("Next!");
+    }
+    private IEnumerator Defeat()
+    {
+        // Wait 0.5 second
+        yield return new WaitForSeconds(0.5f);
+
+        // Load defeat screen
+        SceneManager.LoadScene("Defeat");
     }
 }
