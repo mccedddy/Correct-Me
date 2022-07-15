@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SoundManager : MonoBehaviour
+public class LevelSoundManager : MonoBehaviour
 {
-    private static SoundManager SoundManagerInstance;
+    private static LevelSoundManager LevelSoundManagerInstance;
 
     void Update()
     {
-        // If level starts, stop menu music
-        if (SceneManager.GetActiveScene().name == "Level1" ||
-            SceneManager.GetActiveScene().name == "Level2" ||
-            SceneManager.GetActiveScene().name == "Level3")
+        // Stop music in main menu
+        if (SceneManager.GetActiveScene().name == "MainMenu" ||
+            SceneManager.GetActiveScene().name == "LevelScreen")
         {
             Destroy(gameObject);
         }
@@ -22,9 +21,9 @@ public class SoundManager : MonoBehaviour
         // Dont destroy music on switching scenes
         DontDestroyOnLoad(transform.gameObject);
 
-        if (SoundManagerInstance == null)
+        if (LevelSoundManagerInstance == null)
         {
-            SoundManagerInstance = this;
+            LevelSoundManagerInstance = this;
         }
         else
         {

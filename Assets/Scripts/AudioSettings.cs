@@ -1,32 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioSettings : MonoBehaviour
 {
-    private static readonly string MusicPref = "MusicPref";
-    private static readonly string EffectPref = "EffectPref";
-    private float musicFloat, effectFloat;
-    public AudioSource musicAudio;
-    public AudioSource effectAudio;
+    public Slider SoundEffectsVolume;
+    public Slider BackgroundMusicVolume;
 
-    void Awake()
+    private void Start()
     {
-        ContinueSettings();
+        // Load value to sliders
+        SoundEffectsVolume.value = float.Parse(PlayerPrefs.GetString("SFXVolume"));
+        BackgroundMusicVolume.value = float.Parse(PlayerPrefs.GetString("BGMVolume"));
     }
-    
-    private void ContinueSettings()
+    private void Update()
     {
-        musicFloat = PlayerPrefs.GetFloat(MusicPref);
-        effectFloat = PlayerPrefs.GetFloat(EffectPref);
-        
-        musicAudio.volume = musicFloat;
-        effectAudio.volume = effectFloat;
-    }
-
-    public void SaveSoundSettings()
-    {
-        PlayerPrefs.SetFloat(MusicPref, musicFloat); 
-        PlayerPrefs.SetFloat(EffectPref, effectFloat); 
+        // Set slider value to volume
+        PlayerPrefs.SetString("SFXVolume", SoundEffectsVolume.value.ToString());
+        PlayerPrefs.SetString("BGMVolume", BackgroundMusicVolume.value.ToString());
     }
 }
