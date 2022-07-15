@@ -159,7 +159,6 @@ public class GameControl : MonoBehaviour
 
         // Randomize position
         situation = Random.Range(0, 2);
-        Debug.Log("Next!");
     }
     private IEnumerator Defeat()
     {
