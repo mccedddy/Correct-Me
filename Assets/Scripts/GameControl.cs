@@ -14,6 +14,8 @@ public class GameControl : MonoBehaviour
     public TextMeshProUGUI button2text;
     public TextMeshProUGUI definition;
     public TextMeshProUGUI scoreDisplay;
+    public AudioSource correctSoundEffect;
+    public AudioSource wrongSoundEffect;
     private int score = 0;
     private int currentWordIndex = 0;
     private int situation;
@@ -76,6 +78,7 @@ public class GameControl : MonoBehaviour
         {
             if(correctAnswer == "button1") // Change sprite and load next word
             {
+                correctSoundEffect.Play();
                 button1.GetComponent<Image>().sprite = dictSprites["UI_2"];
                 if (!nextWordStarted)
                 {
@@ -85,6 +88,7 @@ public class GameControl : MonoBehaviour
             }
             else // Defeat
             {
+                wrongSoundEffect.Play();
                 if (!indexAdded) // Change sprite and load defeat screen
                 {
                     button1.GetComponent<Image>().sprite = dictSprites["UI_5"];
@@ -101,6 +105,7 @@ public class GameControl : MonoBehaviour
         {
             if (correctAnswer == "button2") // Change sprite and load next word
             {
+                correctSoundEffect.Play();
                 button2.GetComponent<Image>().sprite = dictSprites["UI_2"];
                 if (!nextWordStarted)
                 {
@@ -110,6 +115,7 @@ public class GameControl : MonoBehaviour
             }
             else // Defeat
             {
+                wrongSoundEffect.Play();
                 if (!indexAdded) // Change sprite and load defeat screen
                 {
                     button2.GetComponent<Image>().sprite = dictSprites["UI_5"];

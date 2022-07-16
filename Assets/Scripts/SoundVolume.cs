@@ -26,7 +26,7 @@ public class SoundVolume : MonoBehaviour
     void Update()
     {
         // Load volume
-        if (gameObjectName == "SoundEffects")
+        if (gameObjectName == "SoundEffects" || gameObjectName == "WrongSoundEffect" || gameObjectName == "CorrectSoundEffect")
         {
             audioSource.volume = float.Parse(PlayerPrefs.GetString("SFXVolume"));
         }
